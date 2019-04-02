@@ -1,0 +1,23 @@
+실행방법
+
+실행파일
+Sequence Data Predict.exe
+
+위 파일을 실행하여 시작한다.
+
+
+(필요시)
+.NET Framework 4.5.1 설치하기
+
+동봉되어 있는 NDP451-KB2859818-Web.exe를 실행하여 설치한다.
+
+
+*주의사항*
+
+다음 열거되는 파일은 프로그램 시스템에서 자동 생성하는 파일임으로 수정을 금한다.
+
+Neural Network Active_Function_Constructed.construct
+Neural Network Constructed.construct
+Policy Neural Network Weight Memory.weight
+Registered Keys.keys
+Registered Window.window

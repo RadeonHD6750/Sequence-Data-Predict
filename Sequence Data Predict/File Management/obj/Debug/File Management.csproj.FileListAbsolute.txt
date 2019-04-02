@@ -1,0 +1,5 @@
+E:\Project\Sequence Data Predict\Sequence Data Predict\File Management\bin\Debug\File Management.dll
+E:\Project\Sequence Data Predict\Sequence Data Predict\File Management\bin\Debug\File Management.pdb
+E:\Project\Sequence Data Predict\Sequence Data Predict\File Management\obj\Debug\File Management.csproj.CoreCompileInputs.cache
+E:\Project\Sequence Data Predict\Sequence Data Predict\File Management\obj\Debug\File Management.dll
+E:\Project\Sequence Data Predict\Sequence Data Predict\File Management\obj\Debug\File Management.pdb
