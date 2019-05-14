@@ -108,13 +108,15 @@ namespace Sequence_Data_Predict
         }
 
        //마르코프 학습하기
-        public void Learning(string []data_list)
+        public void Learning(List<string> data_list)
         {
             Keys_Function(data_list);
             markov.Keys = Keys;
             markov.Learning(data_list);
 
             Learned = true;
+
+            file_api.Close_File_API();
         }
 
         //학습하기
@@ -209,7 +211,7 @@ namespace Sequence_Data_Predict
             */
 
 
-            Write_MAX(Result);
+            //Write_MAX(Result);
 
             return Result;
         }
@@ -359,7 +361,7 @@ namespace Sequence_Data_Predict
             return Token_Data;
         }
 
-        public void Keys_Function(string []Data)
+        public void Keys_Function(List<string> Data)
         {
             //히스토그램 분석
             Dictionary<string, int> Data_Histogram = new Dictionary<string, int>(); //데이터 히스토그램
@@ -377,7 +379,7 @@ namespace Sequence_Data_Predict
             int Normalize_Count = 1;
 
             //데이터 종류 분석
-            for (int i = 0; i < Data.Length; i++, Normalize_Count++)
+            for (int i = 0; i < Data.Count; i++, Normalize_Count++)
             {
                 string temp = Data[i];
                 int Count = 0;

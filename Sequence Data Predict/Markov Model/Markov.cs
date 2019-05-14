@@ -80,7 +80,7 @@ namespace Sequence_Data_Predict
 
         public void Learning()
         {
-
+            //this.Data_Step = Data_Step;
             //전이누계 구하기
             for (int step = 0; step < Data_Step.Count - 1; step++) //현 상태에서
             {
@@ -148,13 +148,13 @@ namespace Sequence_Data_Predict
         }
 
 
-        public void Learning(string []data_list)
+        public void Learning(List<string> data_list)
         {
-            
+            this.Data_Step = data_list;
             //전이누계 구하기
-            for (int step = 0; step < data_list.Length - 1; step++) //현 상태에서
+            for (int step = 0; step < data_list.Count - 1; step++) //현 상태에서
             {
-                Data_Step.Add(data_list[step]);
+                //Data_Step.Add(data_list[step]);
 
                 for (int i = 0; i < State_Number; i++) //해당 상태찾기
                 {
@@ -169,7 +169,7 @@ namespace Sequence_Data_Predict
                 }
             }
 
-            Data_Step.Add(data_list[data_list.Length - 1]);
+            //Data_Step.Add(data_list[data_list.Length - 1]);
 
             //전이 확률도 구하기
             double Transition_Count = 0;

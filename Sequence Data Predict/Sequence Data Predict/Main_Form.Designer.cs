@@ -202,7 +202,7 @@
             this.Controls.Add(this.Predict_Button);
             this.Controls.Add(this.Learning_Button);
             this.Name = "Main_Form";
-            this.Text = "서지민의 시계열 데이터 예측 (정식버전) v1.1";
+            this.Text = "서지민의 시계열 데이터 예측 (Markov) v1";
             ((System.ComponentModel.ISupportInitialize)(this.ResultGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

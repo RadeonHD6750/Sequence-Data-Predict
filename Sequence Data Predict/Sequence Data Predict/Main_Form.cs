@@ -21,7 +21,7 @@ namespace Sequence_Data_Predict
 {
     public partial class Main_Form : Form
     {
-
+        string fath;
         Main_Logic CPU;
 
         int Result_Count = 0;
@@ -63,12 +63,20 @@ namespace Sequence_Data_Predict
                  * 2. 학습하기
                  */
                 CPU.Set_Fath(fath);
+                this.fath = fath;
 
                 //데이터 읽기
                 string Data_Stream = CPU.Read_File(fath);
 
                 //데이터 파싱
                string[] Data_Step = CPU.Input_Data(Data_Stream);
+
+                List<string> Data_List = new List<string>();
+
+                for(int i =0; i < Data_Step.Length; i++)
+                {
+                    Data_List.Add(Data_Step[i]);
+                }
 
                 /*
                 int Epoch = 50000;
@@ -126,7 +134,7 @@ namespace Sequence_Data_Predict
                 */
 
                 //마르코프 학습
-                CPU.Learning(Data_Step);
+                CPU.Learning(Data_List);
 
                 List<string> Keys = CPU.Get_Keys();
 
@@ -162,11 +170,25 @@ namespace Sequence_Data_Predict
             }
 
             //현재 상태
-            string[] Data_List = Present_Data_Text.Text.ToString().Trim().Split(',');
+            //string[] Data_List = Present_Data_Text.Text.ToString().Trim().Split(',');
 
         
             if (CPU.Get_Keys() != null && CPU.IsLearned())
             {
+                string Data_Stream = CPU.Read_File(fath);
+
+                //데이터 파싱
+                string[] Data_Step = CPU.Input_Data(Data_Stream);
+
+                List<string> Data_List = new List<string>();
+
+                for (int i = 0; i < Data_Step.Length; i++)
+                {
+                    Data_List.Add(Data_Step[i]);
+                }
+
+                CPU.Learning(Data_List);
+
                 /*
                 if( CPU.Get_Window_Size() != Data_List.Length)
                 {
@@ -181,6 +203,7 @@ namespace Sequence_Data_Predict
 
                 }
                 */
+                /*
                 for (int i = 0; i < Data_List.Length; i++)
                 {
                     if (!CPU.Get_Keys().Contains(Data_List[i]))
@@ -193,7 +216,8 @@ namespace Sequence_Data_Predict
                         return;
                     }
                 }
-              
+                */
+
             }
             
 
@@ -203,7 +227,7 @@ namespace Sequence_Data_Predict
             double Total = 0;
 
             //전부 0이하 인지 아닌지
-            
+            /*
             Console.WriteLine("사용자 입력 신호");
             for (int i = 0; i < Data_List.Length; i++)
             {
@@ -211,6 +235,7 @@ namespace Sequence_Data_Predict
             }
             Console.WriteLine();
             Console.WriteLine();
+            */
 
             double MAX = Result[0];
             int best = 0;
