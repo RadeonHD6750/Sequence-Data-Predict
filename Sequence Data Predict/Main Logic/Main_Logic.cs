@@ -36,6 +36,7 @@ namespace Sequence_Data_Predict
     {
         private int Window_Size = 5; //관측범위
         private Neural_Network nn;
+        private Markov markov;
         private File_Management file_api;
 
         string Data_Fath;
@@ -43,7 +44,13 @@ namespace Sequence_Data_Predict
         //string Origin_Data;
         List<string> Keys;
         bool Learned = false;
-        int Write_Count = 0;
+
+        public static Random r = new Random();
+
+        public static double RandomRange(double min, double MAX)
+        {
+            return r.NextDouble() * (MAX - min) + min;
+        }
 
         public void Set_Fath(string fath)
         {
@@ -100,7 +107,16 @@ namespace Sequence_Data_Predict
             return Read_Data;
         }
 
-       
+       //마르코프 학습하기
+        public void Learning(string []data_list)
+        {
+            Keys_Function(data_list);
+            markov.Keys = Keys;
+            markov.Learning(data_list);
+
+            Learned = true;
+        }
+
         //학습하기
         public void Learning(string [] Data, int Epoch, double MAX_Error, int Window)
         {
@@ -169,6 +185,7 @@ namespace Sequence_Data_Predict
         //현재 값을 입력받아 데이터 예측하기
         public double[] Predict()
         {
+            /*
             Console.WriteLine("자동 입력 데이터열");
             for(int i =0; i < Last_Window_Data.Length;i ++)
             {
@@ -178,12 +195,30 @@ namespace Sequence_Data_Predict
             Console.WriteLine();
 
             List<double> Signal_Data = String_To_Data(Keys.ToArray(), Last_Window_Data);
+            
 
             double[] Result = nn.Predict(Signal_Data.ToArray());
+            */
+
+            double[] Result = markov.Transition_Predict();
+            /*
+            for(int i =0; i< Result.Length; i++)
+            {
+                Result[i] = RandomRange(0.0, 1.0);
+            }
+            */
+
 
             Write_MAX(Result);
 
             return Result;
+        }
+
+        public void Write_Data(string data)
+        {
+            file_api.WriteFile(this.Data_Fath, true);
+            file_api.Write(data, true);
+            Read_File(this.Data_Fath);
         }
 
         public void Write_MAX(double []Result)
@@ -208,6 +243,8 @@ namespace Sequence_Data_Predict
             Read_File(this.Data_Fath);
 
             Console.WriteLine(this.Data_Fath + "  Data >" + Write_Data);
+
+            markov.Add(Keys[Best]);
           
         }
 
@@ -322,6 +359,62 @@ namespace Sequence_Data_Predict
             return Token_Data;
         }
 
+        public void Keys_Function(string []Data)
+        {
+            //히스토그램 분석
+            Dictionary<string, int> Data_Histogram = new Dictionary<string, int>(); //데이터 히스토그램
+
+            List<string> Keys = new List<string>(); //데이터 종류 
+            List<string> Data_Batch = new List<string>(); //배치 사이즈
+
+            List<string[]> String_Data_Set = new List<string[]>(); //문자열 학습 데이터 집합
+            List<string> String_Target_Data_Set = new List<string>(); // 문자열 목표치 데이터 집합
+
+            List<List<double>> Signal_Data_Set = new List<List<double>>(); //최종 학습 데이터 집합
+            List<List<double>> Target_Data_Set = new List<List<double>>(); //최종 목표치 데이터 집합
+
+            int Total_Data_Kind = 0;
+            int Normalize_Count = 1;
+
+            //데이터 종류 분석
+            for (int i = 0; i < Data.Length; i++, Normalize_Count++)
+            {
+                string temp = Data[i];
+                int Count = 0;
+
+                //이미 있는 데이터
+                if (Data_Histogram.ContainsKey(temp))
+                {
+                    Count = 0;
+                    Count = Data_Histogram[temp];
+                    Count = Count + 1;
+
+                    Data_Histogram[temp] = Count;
+                }
+                //새로운 데이터
+                else
+                {
+                    Data_Histogram.Add(temp, 1);
+                    Keys.Add(temp);
+                    Total_Data_Kind++;
+                }
+            }
+
+            //최종 학습 데이터 종류
+            Console.WriteLine("데이터 종류 ");
+            for (int i = 0; i < Keys.Count; i++)
+            {
+                Console.Write(Keys[i] + "  ");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+
+
+            this.Keys = Keys;
+
+            markov = new Markov(Keys);
+        }
+
         //데이터 쪼개기
         public Learning_Data_Set Data_Parser(string [] Data)
         {
@@ -372,6 +465,7 @@ namespace Sequence_Data_Predict
 
                 //데이터 표준화 
                 //과측범위만큼 분리하기 - 표본화
+                
                 if( (i >= Window_Size))
                 {
 
@@ -405,8 +499,8 @@ namespace Sequence_Data_Predict
                     Data_Batch.Clear();
                     Normalize_Count = 0;
                 }
-
-               
+                
+              
             }
 
             //최종 학습 데이터 종류
@@ -420,6 +514,8 @@ namespace Sequence_Data_Predict
 
 
             this.Keys = Keys;
+
+            
             
             //최종 학습 데이터 생성하기
             for ( int i = 0; i < String_Data_Set.Count; i++)
@@ -453,7 +549,7 @@ namespace Sequence_Data_Predict
 
             //this.Last_Window_Data = String_Data_Set[String_Data_Set.Count - 1];
 
-            Console.WriteLine("마지막 범위 데이터");
+            Console.WriteLine("마지막 범위 데이터 " + Data.Length);
 
             this.Last_Window_Data = new string[Window_Size];
 
@@ -468,7 +564,7 @@ namespace Sequence_Data_Predict
             }
             Console.WriteLine();
             Console.WriteLine();
-
+            
             return Result_Data;
         }
 

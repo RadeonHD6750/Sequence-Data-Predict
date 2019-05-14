@@ -1,15 +1,18 @@
+E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\bin\Debug\Accord.dll.config
 E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\bin\Debug\Main Logic.dll
 E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\bin\Debug\Main Logic.pdb
 E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\bin\Debug\File Management.dll
+E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\bin\Debug\Markov Model.dll
 E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\bin\Debug\Neural Network.dll
 E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\bin\Debug\Jimin_ANN.dll
 E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\bin\Debug\Full_Connected.dll
 E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\bin\Debug\Jimin_Util.dll
+E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\bin\Debug\Markov Model.pdb
 E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\bin\Debug\File Management.pdb
 E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\bin\Debug\Neural Network.pdb
+E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\bin\Debug\Jimin_Util.pdb
+E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\obj\Debug\Main Logic.csprojAssemblyReference.cache
 E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\obj\Debug\Main Logic.csproj.CoreCompileInputs.cache
 E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\obj\Debug\Main Logic.csproj.CopyComplete
 E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\obj\Debug\Main Logic.dll
 E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\obj\Debug\Main Logic.pdb
-E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\bin\Debug\Jimin_Util.pdb
-E:\Project\Sequence Data Predict\Sequence Data Predict\Main Logic\obj\Debug\Main Logic.csprojAssemblyReference.cache

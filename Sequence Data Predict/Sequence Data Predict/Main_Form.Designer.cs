@@ -97,6 +97,7 @@
             this.label2.Size = new System.Drawing.Size(150, 21);
             this.label2.TabIndex = 5;
             this.label2.Text = "최대 학습 횟수";
+            this.label2.Visible = false;
             // 
             // MAX_Epoch_Text
             // 
@@ -105,6 +106,7 @@
             this.MAX_Epoch_Text.Size = new System.Drawing.Size(100, 21);
             this.MAX_Epoch_Text.TabIndex = 6;
             this.MAX_Epoch_Text.Text = "50000";
+            this.MAX_Epoch_Text.Visible = false;
             // 
             // label3
             // 
@@ -115,6 +117,7 @@
             this.label3.Size = new System.Drawing.Size(129, 21);
             this.label3.TabIndex = 7;
             this.label3.Text = "오차 허용치 ";
+            this.label3.Visible = false;
             // 
             // MAX_Cost_Text
             // 
@@ -123,6 +126,7 @@
             this.MAX_Cost_Text.Size = new System.Drawing.Size(100, 21);
             this.MAX_Cost_Text.TabIndex = 8;
             this.MAX_Cost_Text.Text = "2.6";
+            this.MAX_Cost_Text.Visible = false;
             // 
             // label4
             // 
@@ -133,6 +137,7 @@
             this.label4.Size = new System.Drawing.Size(143, 21);
             this.label4.TabIndex = 9;
             this.label4.Text = "과거 관측범위";
+            this.label4.Visible = false;
             // 
             // Windows_Text
             // 
@@ -141,6 +146,7 @@
             this.Windows_Text.Size = new System.Drawing.Size(100, 21);
             this.Windows_Text.TabIndex = 10;
             this.Windows_Text.Text = "5";
+            this.Windows_Text.Visible = false;
             // 
             // Present_Data_Text
             // 
@@ -150,6 +156,7 @@
             this.Present_Data_Text.Size = new System.Drawing.Size(714, 44);
             this.Present_Data_Text.TabIndex = 11;
             this.Present_Data_Text.Text = "다,나,나,나,나 ";
+            this.Present_Data_Text.Visible = false;
             // 
             // Save_Model_Button
             // 
@@ -160,6 +167,7 @@
             this.Save_Model_Button.TabIndex = 12;
             this.Save_Model_Button.Text = "모델 저장하기";
             this.Save_Model_Button.UseVisualStyleBackColor = true;
+            this.Save_Model_Button.Visible = false;
             this.Save_Model_Button.Click += new System.EventHandler(this.Save_Model_Button_Click);
             // 
             // Load_Model_Button
@@ -171,6 +179,7 @@
             this.Load_Model_Button.TabIndex = 13;
             this.Load_Model_Button.Text = "모델 불러오기";
             this.Load_Model_Button.UseVisualStyleBackColor = true;
+            this.Load_Model_Button.Visible = false;
             this.Load_Model_Button.Click += new System.EventHandler(this.Load_Model_Button_Click);
             // 
             // Main_Form

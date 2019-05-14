@@ -70,6 +70,7 @@ namespace Sequence_Data_Predict
                 //데이터 파싱
                string[] Data_Step = CPU.Input_Data(Data_Stream);
 
+                /*
                 int Epoch = 50000;
                 double MAX_Error = 9999;
                 int Window = 5;
@@ -119,9 +120,13 @@ namespace Sequence_Data_Predict
                 Console.WriteLine(Epoch);
                 Console.WriteLine(MAX_Error);
                 Console.WriteLine(Window);
-
+               
                 //학습하기
                 CPU.Learning(Data_Step, Epoch, MAX_Error, Window);
+                */
+
+                //마르코프 학습
+                CPU.Learning(Data_Step);
 
                 List<string> Keys = CPU.Get_Keys();
 
@@ -155,12 +160,14 @@ namespace Sequence_Data_Predict
                 Message = "";
                 Caption = "";
             }
+
+            //현재 상태
             string[] Data_List = Present_Data_Text.Text.ToString().Trim().Split(',');
 
-            
+        
             if (CPU.Get_Keys() != null && CPU.IsLearned())
             {
-                
+                /*
                 if( CPU.Get_Window_Size() != Data_List.Length)
                 {
                     Message = "관측범위와 데이터수가 다릅니다. 관측범위 = "
@@ -173,6 +180,7 @@ namespace Sequence_Data_Predict
                     return;
 
                 }
+                */
                 for (int i = 0; i < Data_List.Length; i++)
                 {
                     if (!CPU.Get_Keys().Contains(Data_List[i]))
@@ -189,11 +197,10 @@ namespace Sequence_Data_Predict
             }
             
 
-            double[] Result = CPU.Predict(Data_List);
-            //double[] Result = CPU.Predict();
+            //double[] Result = CPU.Predict(Data_List);
+            double[] Result = CPU.Predict(); //마르코프
 
             double Total = 0;
-            double MAX = Result[0];
 
             //전부 0이하 인지 아닌지
             
@@ -204,19 +211,24 @@ namespace Sequence_Data_Predict
             }
             Console.WriteLine();
             Console.WriteLine();
-            
 
-            Console.WriteLine("순수 신경망 예측값");
+            double MAX = Result[0];
+            int best = 0;
+            Console.WriteLine("예측값");
             for(int i = 0; i < Result.Length; i++)
             {
                 Console.Write(Result[i] + "  ");
-                Result[i] = Result[i] + 2;
-          
+                
+                if(MAX < Result[i])
+                {
+                    MAX = Result[i];
+                    best = i;
+                }
                 Total = Total + Result[i];
             }
             Console.WriteLine();
             Console.WriteLine();
-
+            
             List<string> Keys = CPU.Get_Keys();
 
             //ResultGrid.Rows.Clear();
@@ -225,11 +237,14 @@ namespace Sequence_Data_Predict
             {
                 Result[i] = (Result[i]) / Total;
 
-                Message = Message +  Keys[i] + " = " + Math.Round(Result[i] * 100, 2) + "%  ";
+                Message = Message +  Keys[i] + " = " + Math.Round(Result[i] * 100, 4) + "%  ";
 
-                ResultGrid[Keys[i].Trim() + "_Columns", Result_Count].Value = Math.Round(Result[i] * 100, 2);
+                ResultGrid[Keys[i].Trim() + "_Columns", Result_Count].Value = Math.Round(Result[i] * 100, 4);
             }
-            Caption = "예측결과";
+            Message = Message + " 예측 데이터 > " + Keys[best];
+
+
+            Caption = "예측결과 : " + Keys[best];
 
             Result_Count++;
 

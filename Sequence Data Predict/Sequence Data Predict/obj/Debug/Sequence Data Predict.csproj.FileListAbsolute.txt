@@ -18,4 +18,6 @@ E:\Project\Sequence Data Predict\Sequence Data Predict\Sequence Data Predict\obj
 E:\Project\Sequence Data Predict\Sequence Data Predict\Sequence Data Predict\obj\Debug\Sequence Data Predict.exe
 E:\Project\Sequence Data Predict\Sequence Data Predict\Sequence Data Predict\obj\Debug\Sequence Data Predict.pdb
 E:\Project\Sequence Data Predict\Sequence Data Predict\Sequence Data Predict\bin\Debug\Jimin_Util.pdb
+E:\Project\Sequence Data Predict\Sequence Data Predict\Sequence Data Predict\bin\Debug\Markov Model.dll
+E:\Project\Sequence Data Predict\Sequence Data Predict\Sequence Data Predict\bin\Debug\Markov Model.pdb
 E:\Project\Sequence Data Predict\Sequence Data Predict\Sequence Data Predict\obj\Debug\Sequence Data Predict.csprojAssemblyReference.cache

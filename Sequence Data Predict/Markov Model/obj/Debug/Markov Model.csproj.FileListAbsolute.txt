@@ -1,0 +1,6 @@
+E:\Project\Sequence Data Predict\Sequence Data Predict\Markov Model\bin\Debug\Markov Model.dll
+E:\Project\Sequence Data Predict\Sequence Data Predict\Markov Model\bin\Debug\Markov Model.pdb
+E:\Project\Sequence Data Predict\Sequence Data Predict\Markov Model\obj\Debug\Markov Model.csproj.CoreCompileInputs.cache
+E:\Project\Sequence Data Predict\Sequence Data Predict\Markov Model\obj\Debug\Markov Model.dll
+E:\Project\Sequence Data Predict\Sequence Data Predict\Markov Model\obj\Debug\Markov Model.pdb
+E:\Project\Sequence Data Predict\Sequence Data Predict\Markov Model\obj\Debug\Markov Model.csprojAssemblyReference.cache
