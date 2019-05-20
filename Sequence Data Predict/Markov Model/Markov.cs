@@ -1,8 +1,13 @@
 ﻿/*
  2019-05-13 
- 
+ 2019-05-19
+
+
  특정 문자열이 출연할 확률 구하기 
+
+
  
+특정 문자열 찾기
  
 
  작성자 서지민
@@ -26,6 +31,7 @@ namespace Sequence_Data_Predict
         public List<string> Keys;
         int State_Number;
         int Window_Number = 5;
+        public int past_length;
 
         int[,] Transition_Count_Table;
         double[,] Transition_Probability_Table;
@@ -46,6 +52,12 @@ namespace Sequence_Data_Predict
 
             Transition_Count_Table = new int[State_Number, State_Number];
             Transition_Probability_Table = new double[State_Number, State_Number];
+        }
+
+        public void Set_past(int past)
+        {
+            this.past_length = past;
+            //Console.WriteLine("Markov past " + past);
         }
 
         void Add(string state, string new_state, int count)
@@ -150,6 +162,7 @@ namespace Sequence_Data_Predict
 
         public void Learning(List<string> data_list)
         {
+            //Console.WriteLine("Markov Learning: " + this.past_length);
             this.Data_Step = data_list;
             //전이누계 구하기
             for (int step = 0; step < data_list.Count - 1; step++) //현 상태에서
@@ -218,7 +231,7 @@ namespace Sequence_Data_Predict
             }
             Console.WriteLine();
             Console.WriteLine();
-
+            //Console.WriteLine("Markov Learning end: " + this.past_length);
         }
         public double[] Probability_Sequence(string state)
         {
@@ -392,6 +405,8 @@ namespace Sequence_Data_Predict
             //Learning(Data_Step.ToArray());
             //Learning();
             double[] Result = new double[State_Number];
+
+            /*
             double MAX = Transition_Likelihood(Keys[0]);
             string Best = Keys[0];
             for (int i = 0; i < Keys.Count; i++)
@@ -404,9 +419,72 @@ namespace Sequence_Data_Predict
                 Result[i] = Transition_Likelihood(Keys[i]);
             }
             
-            
-
+           
             //double[] Result = Probability_Sequence( Data_Step[  Data_Step.Count - 2]);
+            */
+            string[] window = new string[this.past_length];
+            //int[] hist = new int[State_Number];
+
+            //window[0] = Data_Step[Data_Step.Count - 2];
+            //window[1] = Data_Step[Data_Step.Count - 1];
+
+            Console.WriteLine("과거관측범위: " + this.past_length);
+            //Console.WriteLine("window 크기: " + window.Length);
+            //Console.WriteLine("데이터 크기: " + Data_Step.Count);
+            //Console.WriteLine("데이터끝 주소: " + (Data_Step.Count - 1));
+            //Console.WriteLine("관측시작 주소: " + ((Data_Step.Count - 1) - past_length));
+
+            for (int i = (Data_Step.Count - past_length), j = 0; i < Data_Step.Count; i++, j++)
+            {
+                //Console.WriteLine("window position: " + j);
+                //Console.WriteLine("Data_Step position: " + i);
+                window[j] = Data_Step[i];
+            }
+
+            int math_count = 0;
+            int total_count = 0;
+            for(int step = 0; step < Data_Step.Count - past_length - 1; step++)
+            {
+                math_count = 0;
+
+                for (int i = 0; i < past_length; i++)
+                {
+                    if(Data_Step[step + i] == window[i])
+                    {
+                        math_count++;
+                    }
+                }
+
+                if(math_count == past_length)
+                {
+                    for(int i = 0; i < Keys.Count; i++)
+                    {
+                        if(Data_Step[step + past_length] == Keys[i])
+                        {
+                            Result[i] = Result[i] + 1.0;
+                            break;
+                        }
+
+                    }
+
+                    total_count++;
+                }
+            }
+
+            Console.WriteLine("출연빈도: " + total_count);
+            for (int i = 0; i < window.Length; i++)
+            {
+                Console.Write(window[i] + " -> ");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+
+            for (int i = 0; i < State_Number; i++)
+            {
+                Console.Write(Keys[i] + " : " + Result[i] + "  ");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
 
             return Result;
         }

@@ -44,12 +44,20 @@ namespace Sequence_Data_Predict
         //string Origin_Data;
         List<string> Keys;
         bool Learned = false;
+        int past;
 
         public static Random r = new Random();
 
         public static double RandomRange(double min, double MAX)
         {
             return r.NextDouble() * (MAX - min) + min;
+        }
+
+        public void Set_pass(int past)
+        {
+            markov.Set_past(past);
+            this.past = past;
+            Console.WriteLine("MainLogic past " + past);
         }
 
         public void Set_Fath(string fath)
@@ -115,7 +123,7 @@ namespace Sequence_Data_Predict
             markov.Learning(data_list);
 
             Learned = true;
-
+            markov.Set_past(past);
             file_api.Close_File_API();
         }
 
@@ -187,6 +195,7 @@ namespace Sequence_Data_Predict
         //현재 값을 입력받아 데이터 예측하기
         public double[] Predict()
         {
+            markov.Set_past(past);
             /*
             Console.WriteLine("자동 입력 데이터열");
             for(int i =0; i < Last_Window_Data.Length;i ++)
@@ -198,10 +207,9 @@ namespace Sequence_Data_Predict
 
             List<double> Signal_Data = String_To_Data(Keys.ToArray(), Last_Window_Data);
             
-
+            markov.Set_past(past);
             double[] Result = nn.Predict(Signal_Data.ToArray());
             */
-
             double[] Result = markov.Transition_Predict();
             /*
             for(int i =0; i< Result.Length; i++)

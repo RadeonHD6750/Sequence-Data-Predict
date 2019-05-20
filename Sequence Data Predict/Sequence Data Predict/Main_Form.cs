@@ -144,7 +144,8 @@ namespace Sequence_Data_Predict
                 {
                      ResultGrid.Columns.Add(Keys[i].Trim() + "_Columns", Keys[i].Trim());
                 }
-
+                string paststring = Windows_Text.Text.ToString();
+                int past = int.Parse(paststring);
 
                 Message = "학습완료";
                 Caption = "학습상태";
@@ -155,6 +156,8 @@ namespace Sequence_Data_Predict
         //여기서 예측한다.
         private void Predict_Button_Click(object sender, EventArgs e)
         {
+            string paststring = Windows_Text.Text.ToString();
+            int past = int.Parse(paststring);
             string Message = "아직 학습이 되지 않았습니다.";
             string Caption = "오류발생";
 
@@ -175,6 +178,11 @@ namespace Sequence_Data_Predict
         
             if (CPU.Get_Keys() != null && CPU.IsLearned())
             {
+                paststring =  Windows_Text.Text.ToString();
+                past = int.Parse(paststring);
+                Console.WriteLine("입력된 과거관측범위: " + past);
+                CPU.Set_pass(past);
+
                 string Data_Stream = CPU.Read_File(fath);
 
                 //데이터 파싱
